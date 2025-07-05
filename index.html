@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaîne YouTube Aléatoire</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #e62117; /* YouTube red */
+        }
+        p {
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #e62117;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #c01a12;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenue !</h1>
+        <p>Cliquez sur le bouton ci-dessous pour être redirigé vers une chaîne YouTube aléatoire.</p>
+        <button class="button" onclick="redirectToRandomChannel()">
+            Aller à une chaîne aléatoire
+        </button>
+    </div>
+
+    <script>
+        const youtubeChannels = [
+            'https://www.youtube.com/@TED',
+            'https://www.youtube.com/@TheGreatWar',
+            'https://www.youtube.com/@Kurzgesagt',
+            'https://www.youtube.com/@VagabondYouth',
+            'https://www.youtube.com/@Squeezie', // Example French channel
+            'https://www.youtube.com/@Cyprien',   // Example French channel
+            // Add more YouTube channel URLs here
+            // Make sure each URL is a string and separated by a comma
+        ];
+
+        function redirectToRandomChannel() {
+            const randomIndex = Math.floor(Math.random() * youtubeChannels.length);
+            const randomChannelUrl = youtubeChannels[randomIndex];
+            window.location.href = randomChannelUrl;
+        }
+
+        // Optional: Automatically redirect on page load
+        // Uncomment the line below if you want the redirection to happen immediately
+        // redirectToRandomChannel();
+    </script>
+</body>
+</html>
