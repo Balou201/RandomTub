@@ -7,75 +7,131 @@
     <style>
         body {
             display: flex;
+            flex-direction: column; /* Permet d'aligner le contenu et le footer */
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f0f2f5;
             color: #333;
             text-align: center;
+            line-height: 1.6;
+            padding-bottom: 50px; /* Espace pour le footer */
+            box-sizing: border-box; /* Inclut le padding dans la hauteur totale */
         }
         .container {
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            margin-bottom: 20px; /* Espace entre le conteneur et le footer */
         }
         h1 {
-            color: #e62117; /* YouTube red */
+            color: #ff0000;
+            margin-bottom: 20px;
+            font-size: 2.2em;
         }
         p {
-            margin-top: 20px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #555;
         }
         .button {
             display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #e62117;
+            padding: 12px 25px;
+            background-color: #ff0000;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .button:hover {
-            background-color: #c01a12;
+            background-color: #cc0000;
+            transform: translateY(-2px);
+        }
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            margin-top: auto; /* Pousse le footer vers le bas */
+            padding: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .footer a {
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1em;
+            }
+            .button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bienvenue !</h1>
-        <p>Cliquez sur le bouton ci-dessous pour être redirigé vers une chaîne YouTube aléatoire.</p>
+        <h1>Découvrez une chaîne YouTube au hasard !</h1>
+        <p>Cliquez sur le bouton ci-dessous pour être instantanément redirigé vers une chaîne YouTube choisie aléatoirement parmi notre sélection.</p>
         <button class="button" onclick="redirectToRandomChannel()">
-            Aller à une chaîne aléatoire
+            Surprenez-moi !
         </button>
     </div>
 
+    <footer class="footer">
+        Créé par G.voida. Pour le contacter, rejoignez notre serveur Discord : <a href="https://discord.gg/ye8MhVUdWU" target="_blank">Rejoindre le Discord</a>
+    </footer>
+
     <script>
         const youtubeChannels = [
-            'https://www.youtube.com/@TED',
-            'https://www.youtube.com/@TheGreatWar',
-            'https://www.youtube.com/@Kurzgesagt',
-            'https://www.youtube.com/@VagabondYouth',
-            'https://youtube.com/@komastar78?si=b43f4wZREaAg74Zjx',
-            'https://www.youtube.com/@Squeezie', // Example French channel
-            'https://www.youtube.com/@Cyprien',   // Example French channel
-            // Add more YouTube channel URLs here
-            // Make sure each URL is a string and separated by a comma
+            // --- Ajoutez VOS URL de chaînes YouTube ici ---
+            // Chaque chaîne doit apparaître UNE SEULE FOIS pour un tirage équitable.
+            'https://www.youtube.com/@taokizbm', // Exemple de chaîne 1
+            'https://www.youtube.com/@Julian-nolan', // Exemple de chaîne 2
+            'https://www.youtube.com/@Xenoks_Dev', // Exemple de chaîne 3
+            'https://www.youtube.com/@komastar78', // Exemple de chaîne 4
+            'https://www.youtube.com/@CismuYTB', // Exemple de chaîne 5
+            'https://www.youtube.com/@katsuki0001', // Exemple de chaîne 6
+            // N'oubliez pas d'ajouter d'autres URL de chaînes ici !
+            // Assurez-vous que chaque URL est une chaîne de caractères ('...') et est séparée par une virgule.
         ];
 
         function redirectToRandomChannel() {
+            if (youtubeChannels.length === 0) {
+                alert("Désolé, aucune chaîne YouTube n'a été configurée. Veuillez ajouter des URL à la liste !");
+                return;
+            }
             const randomIndex = Math.floor(Math.random() * youtubeChannels.length);
             const randomChannelUrl = youtubeChannels[randomIndex];
+            
             window.location.href = randomChannelUrl;
         }
 
-        // Optional: Automatically redirect on page load
-        // Uncomment the line below if you want the redirection to happen immediately
-        // redirectToRandomChannel();
+        // Si vous souhaitez une redirection automatique dès le chargement de la page,
+        // décommentez la ligne ci-dessous :
+        // window.onload = redirectToRandomChannel;
     </script>
 </body>
 </html>
