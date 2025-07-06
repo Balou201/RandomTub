@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chaîne YouTube Aléatoire</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Découvrez une Chaîne YouTube Aléatoire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-red: #ff0000;
+            --dark-red: #cc0000;
+            --light-grey: #f0f2f5;
+            --mid-grey: #e0e6ed;
+            --dark-grey: #333;
+            --text-color: #555;
+            --white: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --shadow-strong: rgba(0, 0, 0, 0.25);
+        }
+
         body {
             display: flex;
             flex-direction: column;
@@ -13,68 +27,94 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e0e6ed 100%);
-            color: #333;
+            font-family: 'Open Sans', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--light-grey) 0%, var(--mid-grey) 100%);
+            color: var(--dark-grey);
             text-align: center;
             line-height: 1.6;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
             box-sizing: border-box;
-            overflow: hidden; /* Prevent scrollbar during animation */
+            overflow: hidden;
         }
+
         .container {
-            padding: 30px;
-            border-radius: 15px;
-            background-color: #ffffff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            max-width: 550px;
+            padding: 40px;
+            border-radius: 20px;
+            background-color: var(--white);
+            box-shadow: 0 12px 40px var(--shadow-medium);
+            max-width: 600px;
             width: 90%;
             margin-bottom: 30px;
-            position: relative; /* For loading overlay */
-            overflow: hidden; /* Ensures shadow doesn't escape */
+            position: relative;
+            overflow: hidden;
             transform: scale(1);
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: fadeIn 1s ease-out forwards;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .container.loading {
-            transform: scale(0.95);
+            transform: scale(0.97);
         }
+
         h1 {
-            color: #ff0000;
+            color: var(--primary-red);
             margin-bottom: 25px;
-            font-size: 2.5em;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8em;
             font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+            text-shadow: 1px 1px 3px var(--shadow-light);
+            line-height: 1.2;
         }
+
         p {
             margin-top: 15px;
             margin-bottom: 35px;
             font-size: 1.15em;
-            color: #555;
+            color: var(--text-color);
             line-height: 1.7;
         }
+
         .button {
-            display: inline-block;
-            padding: 14px 30px;
-            background-color: #ff0000;
-            color: white;
+            display: inline-flex; /* Use flexbox for icon and text alignment */
+            align-items: center;
+            justify-content: center;
+            padding: 15px 35px;
+            background-color: var(--primary-red);
+            color: var(--white);
             text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.3em;
+            border-radius: 12px;
+            font-size: 1.4em;
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             border: none;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-            letter-spacing: 0.5px;
+            box-shadow: 0 8px 18px var(--shadow-strong);
+            letter-spacing: 0.8px;
+            gap: 10px; /* Space between icon and text */
         }
+        .button i {
+            transition: transform 0.3s ease;
+        }
+
         .button:hover {
-            background-color: #cc0000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background-color: var(--dark-red);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
         }
         .button:active {
             transform: translateY(0);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px var(--shadow-medium);
+        }
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         /* Loading Overlay */
@@ -84,26 +124,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.9);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-radius: 15px;
+            border-radius: 20px;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
             z-index: 10;
+            gap: 20px; /* Space between spinner and progress bar */
         }
         .loading-overlay.active {
             opacity: 1;
             visibility: visible;
         }
         .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #ff0000;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: var(--primary-red);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
         }
         @keyframes spin {
@@ -111,106 +153,215 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Progress Bar */
+        .progress-bar-container {
+            width: 80%;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 15px;
+            box-shadow: inset 0 1px 3px var(--shadow-light);
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-red);
+            border-radius: 10px;
+            transition: width 0.1s linear; /* Smooth fill */
+        }
+
         .footer {
             margin-top: auto;
-            padding: 20px;
+            padding: 25px;
             font-size: 0.95em;
             color: #777;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            box-shadow: 0 -5px 20px var(--shadow-light);
             width: 100%;
-            max-width: 600px; /* Adjust as needed */
+            max-width: 650px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            animation: slideInUp 1s ease-out forwards;
         }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .footer a {
-            color: #ff0000;
+            color: var(--primary-red);
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
         }
         .footer a:hover {
-            color: #cc0000;
+            color: var(--dark-red);
             text-decoration: underline;
         }
 
-        @media (max-width: 600px) {
+        .alert-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffe0e0;
+            border: 1px solid var(--primary-red);
+            color: var(--primary-red);
+            border-radius: 10px;
+            font-weight: 600;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .alert-message.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
             h1 {
-                font-size: 2em;
+                font-size: 2.2em;
+            }
+            .button {
+                font-size: 1.2em;
+                padding: 12px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px;
+            }
+            h1 {
+                font-size: 1.8em;
             }
             p {
                 font-size: 1em;
             }
             .button {
-                padding: 12px 25px;
                 font-size: 1.1em;
+                padding: 10px 25px;
             }
-            .container {
-                padding: 25px;
+            .footer {
+                flex-direction: column;
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="mainContainer">
-        <h1>Découvrez une chaîne YouTube au hasard !</h1>
+    <div class="container" id="mainContainer" role="main" aria-live="polite" aria-atomic="true">
+        <h1>Découvrez une Chaîne YouTube Aléatoire !</h1>
         <p>Cliquez sur le bouton ci-dessous pour être instantanément redirigé vers une chaîne YouTube choisie aléatoirement parmi notre sélection. Une petite surprise vous attend !</p>
-        <button class="button" onclick="triggerRandomRedirect()">
-            Surprenez-moi !
+        <button class="button" id="surpriseButton" onclick="triggerRandomRedirect()" aria-label="Lancer la découverte d'une chaîne YouTube aléatoire">
+            <i class="fas fa-magic"></i>
+            <span>Surprenez-moi !</span>
         </button>
 
-        <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Chargement de la chaîne YouTube">
             <div class="spinner"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="alert-message" id="channelMissingAlert" role="alert">
+            Désolé, aucune chaîne YouTube n'a été configurée. Veuillez ajouter des URL à la liste !
         </div>
     </div>
 
-    <footer class="footer">
-        Créé par G.voida. Pour le contacter, rejoignez notre serveur Discord : <a href="https://discord.gg/ye8MhVUdWU" target="_blank">Rejoindre le Discord</a>
+    <footer class="footer" role="contentinfo">
+        <span>Créé par G.voida.</span> 
+        <a href="https://discord.gg/ye8MhVUdWU" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-discord"></i> Rejoindre le Discord
+        </a>
     </footer>
 
     <script>
         const youtubeChannels = [
-            // --- Ajoutez VOS URL de chaînes YouTube ici ---
-            // Chaque chaîne doit apparaître UNE SEULE FOIS pour un tirage équitable.
-            'https://www.youtube.com/@mistermv', // Exemple réel
-            'https://www.youtube.com/@Squeezie',
+            // --- REMPLACEZ CES PLACEHOLDERS PAR VOS VRAIES URLS DE CHAÎNES YOUTUBE ---
+            'https://www.youtube.com/@misterjday',
+            'https://www.youtube.com/@scienceetonnante',
+            'https://www.youtube.com/@HugoDecrypte',
+            'https://www.youtube.com/@LinksTheSun',
+            'https://www.youtube.com/@DirtyBiology',
+            'https://www.youtube.com/@feldup',
             'https://www.youtube.com/@Cyprien',
-            'https://www.youtube.com/@Michou',
-            'https://www.youtube.com/@Amixem',
-            'https://www.youtube.com/@LESTHETICIEN',
-            'https://www.youtube.com/@Jojol',
-            'https://www.youtube.com/@FastGoodCuisine',
-            'https://www.youtube.com/@DocSevenTV',
-            'https://www.youtube.com/@Inoxtag',
-            // N'oubliez pas d'ajouter d'autres URL de chaînes ici !
-            // Assurez-vous que chaque URL est une chaîne de caractères ('...') et est séparée par une virgule.
+            'https://www.youtube.com/@Squeezie',
+            'https://www.youtube.com/@DocSeven',
+            'https://www.youtube.com/@joueurdugrenier',
+            'https://www.youtube.com/@NotaBeneVideos',
+            'https://www.youtube.com/@PoissonFecond',
+            'https://www.youtube.com/@LeMondeALenversOff',
+            'https://www.youtube.com/@JambonBeurre',
+            'https://www.youtube.com/@E-penser',
+            'https://www.youtube.com/@Dr Nozman',
+            'https://www.youtube.com/@LaTroncheEnBiais',
+            'https://www.youtube.com/@GouvHD',
+            'https://www.youtube.com/@AntoineDaniel',
+            'https://www.youtube.com/@Axolot',
         ];
 
         const loadingOverlay = document.getElementById('loadingOverlay');
         const mainContainer = document.getElementById('mainContainer');
+        const surpriseButton = document.getElementById('surpriseButton');
+        const progressBar = document.getElementById('progressBar');
+        const channelMissingAlert = document.getElementById('channelMissingAlert');
+
+        let intervalId; // To store the interval for progress bar
 
         function triggerRandomRedirect() {
             if (youtubeChannels.length === 0) {
-                alert("Désolé, aucune chaîne YouTube n'a été configurée. Veuillez ajouter des URL à la liste !");
+                channelMissingAlert.classList.add('active');
                 return;
             }
 
-            // Show loading animation
+            channelMissingAlert.classList.remove('active'); // Hide alert if it was visible
+            surpriseButton.disabled = true; // Disable button during loading
             loadingOverlay.classList.add('active');
             mainContainer.classList.add('loading');
             
-            // Simulate a short loading time (e.g., 1-2 seconds)
-            const loadingTime = Math.random() * 1000 + 1000; // Between 1000ms (1s) and 2000ms (2s)
+            progressBar.style.width = '0%'; // Reset progress bar
+            let progress = 0;
+            const totalLoadingTime = Math.random() * 1500 + 1500; // Between 1.5s and 3s
+
+            // Update progress bar
+            intervalId = setInterval(() => {
+                progress += (100 / (totalLoadingTime / 100)); // Increment based on total time
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(intervalId);
+                }
+                progressBar.style.width = progress + '%';
+            }, 100); // Update every 100ms
 
             setTimeout(() => {
+                clearInterval(intervalId); // Ensure interval is cleared
                 const randomIndex = Math.floor(Math.random() * youtubeChannels.length);
                 const randomChannelUrl = youtubeChannels[randomIndex];
                 
+                // Reset UI before redirecting (optional, but good practice)
+                loadingOverlay.classList.remove('active');
+                mainContainer.classList.remove('loading');
+                surpriseButton.disabled = false;
+                progressBar.style.width = '0%'; // Ensure it's reset for next time
+
                 window.location.href = randomChannelUrl;
-            }, loadingTime);
+            }, totalLoadingTime);
         }
 
-        // If you want automatic redirection on page load, uncomment the line below:
+        // Example of how to add more channels dynamically (optional)
+        function addChannel(url) {
+            if (url && !youtubeChannels.includes(url)) {
+                youtubeChannels.push(url);
+                console.log(`Channel added: ${url}. Total channels: ${youtubeChannels.length}`);
+            }
+        }
+
+        // Optional: uncomment to redirect automatically on page load
         // window.onload = triggerRandomRedirect;
     </script>
 </body>
