@@ -3,25 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trouve ta chaîne YouTube aléatoire</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Trouver une Chaîne Aléatoire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #2a2a72 0%, #009ffd 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            margin-top: 40px;
+        }
+
+        .find-button {
+            background-color: #00e676; /* Green */
+            color: #fff;
+            border: none;
+            padding: 18px 35px;
+            font-size: 1.4em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 230, 118, 0.4);
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .find-button:hover {
+            background-color: #00c853; /* Darker green */
+            box-shadow: 0 12px 20px rgba(0, 200, 83, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .find-button:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 10px rgba(0, 200, 83, 0.3);
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00e676;
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 40px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .find-button {
+                padding: 15px 30px;
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 25px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .find-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .footer {
+                font-size: 0.8em;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Découvre ta prochaine obsession YouTube !</h1>
-        <p class="subtitle">Clique ci-dessous pour explorer une chaîne choisie au hasard.</p>
-        <button id="findChannelButton">Explorer une chaîne aléatoire</button>
+        <h1>Trouvez Votre Prochaine Chaîne Aléatoire</h1>
+        <p>Cliquez sur le bouton ci-dessous pour être redirigé vers une chaîne YouTube choisie au hasard.</p>
+        <div class="button-container">
+            <button class="find-button" onclick="redirectToRandomChannel()">Chercher une Chaîne</button>
+        </div>
     </div>
 
     <footer class="footer">
-        <p>Conçu avec <span class="heart">❤️</span> par <a href="https://balou201.github.io/G.voida/" target="_blank" rel="noopener noreferrer">𝓖∘𝕧𝕠𝕚𝖉𝖆</a></p>
-        <p>Questions ou collaborations ? Rejoins le serveur : <a href="https://balou201.github.io/Serveur/" target="_blank" rel="noopener noreferrer">Serveur de 𝓖∘𝕧𝕠𝕚𝖉𝖆</a></p>
+        <p>Créé par 𝓖∘𝕧𝕠𝕚𝖉𝖆</p>
+        <p>Pour contacter 𝓖∘𝕧𝕠𝕚𝖉𝖆, rejoignez le serveur : <a href="https://balou201.github.io/Serveur/" target="_blank">Serveur Discord</a></p>
+        <p>Visitez le site de 𝓖∘𝕧𝕠𝕚𝖉𝖆 : <a href="https://balou201.github.io/G.voida/" target="_blank">Site de 𝓖∘𝕧𝕠𝕚𝖉𝖆</a></p>
     </footer>
 
-    <script src="youtube-channels.js"></script> 
-    <script src="script.js"></script>
+    <script>
+        const channels = [
+            "https://www.youtube.com/@mistermv",
+            "https://www.youtube.com/@GotagaTV",
+            "https://www.youtube.com/@Squeezie",
+            "https://www.youtube.com/@JLTomy",
+            "https://www.youtube.com/@Feldup",
+            "https://www.youtube.com/@DrMantis",
+            "https://www.youtube.com/@ZeratoR",
+            "https://www.youtube.com/@lainknetdamnation",
+            "https://www.youtube.com/@Cyprien",
+            "https://www.youtube.com/@Amixem",
+            "https://www.youtube.com/@michouoff",
+            "https://www.youtube.com/@Inoxtag",
+            "https://www.youtube.com/@joyca",
+            "https://www.youtube.com/@Tiboinshape",
+            "https://www.youtube.com/@McFlyetCarlito",
+            "https://www.youtube.com/@LeBledArt",
+            "https://www.youtube.com/@MaximeBiaggi",
+            "https://www.youtube.com/@FastGoodCuisine",
+            "https://www.youtube.com/@EnjoyPhoenix",
+            "https://www.youtube.com/@NormanFaitDesVideos",
+            "https://www.youtube.com/@natoo",
+            "https://www.youtube.com/@Seb_la_Frite",
+            "https://www.youtube.com/@Valentin_Jtt",
+            "https://www.youtube.com/@DocSevenTV",
+            "https://www.youtube.com/@dirtybiology",
+            "https://www.youtube.com/@scienceetonnante",
+            "https://www.youtube.com/@HugoDecrypte",
+            "https://www.youtube.com/@LamaFache",
+            "https://www.youtube.com/@PoissonFecond",
+            "https://www.youtube.com/@Axolot",
+            "https://www.youtube.com/@LienArt",
+            "https://www.youtube.com/@CharlieDanger",
+            "https://www.youtube.com/@e_penser",
+            "https://www.youtube.com/@MonsieurPhi",
+            "https://www.youtube.com/@NotaBeneVideos",
+            "https://www.youtube.com/@HygieneMentale",
+            "https://www.youtube.com/@Linguisticae",
+            "https://www.youtube.com/@PartagerCestSympa",
+            "https://www.youtube.com/@Mamytwink",
+            "https://www.youtube.com/@JDG",
+            "https://www.youtube.com/@WankilStudio",
+            "https://www.youtube.com/@vodk",
+            "https://www.youtube.com/@michou",
+            "https://www.youtube.com/@Gotaga",
+            "https://www.youtube.com/@AlphaCast",
+            "https://www.youtube.com/@Domingo",
+            "https://www.youtube.com/@PewDiePie", // Example non-French channel
+            "https://www.youtube.com/@MrBeast", // Example non-French channel
+            "https://www.youtube.com/@MarkRober" // Example non-French channel
+            // Add more YouTube channel links here
+        ];
+
+        function redirectToRandomChannel() {
+            const randomIndex = Math.floor(Math.random() * channels.length);
+            const randomChannel = channels[randomIndex];
+            window.open(randomChannel, '_blank'); // Opens in a new tab
+        }
+    </script>
 </body>
 </html>
