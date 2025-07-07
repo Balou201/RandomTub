@@ -1,495 +1,161 @@
-/* style.css */
-
-:root {
-    --primary-red: #ff0000;
-    --dark-red: #cc0000;
-    --light-grey: #f0f2f5;
-    --mid-grey: #e0e6ed;
-    --dark-grey: #333;
-    --text-color: #555;
-    --white: #ffffff;
-    --shadow-light: rgba(0, 0, 0, 0.1);
-    --shadow-medium: rgba(0, 0, 0, 0.15);
-    --shadow-strong: rgba(0, 0, 0, 0.25);
-
-    /* COULEURS POUR LES THÈMES DE RANGS */
-    --bronze-bg-start: #a37b51;
-    --bronze-bg-end: #8b623f;
-    --silver-bg-start: #c0c0c0;
-    --silver-bg-end: #a8a8a8;
-    --gold-bg-start: #ffd700;
-    --gold-bg-end: #ccac00;
-    --platinum-bg-start: #e5e4e2;
-    --platinum-bg-end: #d1d0cb;
-    --diamond-bg-start: #b9f2ff;
-    --diamond-bg-end: #a4eaff;
-    --master-bg-start: #ff4500; /* Orange ardent pour Maître */
-    --master-bg-end: #e63900;
-
-    --bronze-text: #603a1d;
-    --silver-text: #4a4a4a;
-    --gold-text: #7a6000;
-    --platinum-text: #505050;
-    --diamond-text: #004d60;
-    --master-text: #802200;
-
-    /* Couleurs des boîtes pour les thèmes */
-    --bronze-box-bg: #edd0b7;
-    --silver-box-bg: #ececec;
-    --gold-box-bg: #fff8dc;
-    --platinum-box-bg: #fdfdfd;
-    --diamond-box-bg: #f0fbff;
-    --master-box-bg: #ffe0d6;
-
-    /* Couleurs de bouton pour les thèmes */
-    --bronze-btn-bg: #8b4513;
-    --silver-btn-bg: #7f8c8d;
-    --gold-btn-bg: #e6b800;
-    --platinum-btn-bg: #7c7c7c;
-    --diamond-btn-bg: #007bff;
-    --master-btn-bg: #d43600;
-}
+/* styles.css */
 
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Aligner en haut pour laisser de la place au header */
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    font-family: 'Open Sans', Arial, sans-serif;
-    background: linear-gradient(135deg, var(--light-grey) 0%, var(--mid-grey) 100%);
-    color: var(--dark-grey);
-    text-align: center;
-    line-height: 1.6;
-    padding-bottom: 60px; /* Espace pour le footer */
-    box-sizing: border-box;
-    overflow-x: hidden; /* Empêche le défilement horizontal */
-    transition: background-color 0.8s ease, color 0.8s ease;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transition douce pour les changements de thème */
 }
 
-/* Styles du HEADER (Nouveau) */
-.header {
-    width: 100%;
-    max-width: 800px; /* Limite la largeur pour ne pas être trop étiré */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 15px var(--shadow-light);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    margin-bottom: 30px; /* Espace entre le header et le container principal */
+/* Positionnement du bouton de thème */
+.theme-toggle-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 1000; /* Assure qu'il est au-dessus du reste */
 }
 
-.creator-info {
-    margin: 0;
-    font-size: 1em;
-    color: var(--text-color);
-    font-weight: 600;
+.theme-toggle-button:hover {
+    background-color: #777;
 }
-
-/* Le lien Discord dans le header */
-.header-link.discord-link {
-    padding: 10px 20px;
-    font-size: 1.05em;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-.header-link.discord-link:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
 
 .container {
+    background-color: #fff;
     padding: 40px;
-    border-radius: 20px;
-    background-color: var(--white);
-    box-shadow: 0 12px 40px var(--shadow-medium);
-    max-width: 600px;
-    width: 90%;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
-    transform: scale(1);
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.8s ease, box-shadow 0.8s ease;
-    animation: fadeIn 1s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.container.loading {
-    transform: scale(0.97);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 h1 {
-    color: var(--primary-red);
-    margin-bottom: 25px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.8em;
-    font-weight: 700;
-    text-shadow: 1px 1px 3px var(--shadow-light);
-    line-height: 1.2;
-    transition: color 0.8s ease;
+    color: #c4302b; /* Couleur rouge YouTube */
+    margin-bottom: 20px;
+    transition: color 0.5s ease;
 }
 
-p {
-    margin-top: 15px;
-    margin-bottom: 35px;
-    font-size: 1.15em;
-    color: var(--text-color);
-    line-height: 1.7;
-    transition: color 0.8s ease;
-}
-
-.button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 35px;
-    background-color: var(--primary-red);
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 12px;
-    font-size: 1.4em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+button {
+    background-color: #c4302b; /* Couleur rouge YouTube */
+    color: white;
     border: none;
-    box-shadow: 0 8px 18px var(--shadow-strong);
-    letter-spacing: 0.8px;
-    gap: 10px;
-}
-.button i {
-    transition: transform 0.3s ease;
-}
-
-.button:hover {
-    background-color: var(--dark-red);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
-}
-.button:active {
-    transform: translateY(0);
-    box-shadow: 0 5px 10px var(--shadow-medium);
-}
-.button:disabled {
-    background-color: #cccccc !important;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-/* Loading Overlay */
-.loading-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-    z-index: 10;
-    gap: 20px;
-}
-.loading-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-.spinner {
-    border: 5px solid rgba(0, 0, 0, 0.1);
-    border-top-color: var(--primary-red);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Progress Bar (pour le chargement de la chaîne) */
-.progress-bar-container {
-    width: 80%;
-    background-color: #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 15px;
-    box-shadow: inset 0 1px 3px var(--shadow-light);
-}
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: var(--primary-red);
-    border-radius: 10px;
-    transition: width 0.1s linear;
-}
-
-/* Stats Area (Compteur de clics et progression de rang) */
-.stats-area {
-    margin-top: 25px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-.stats-text {
-    margin: 0;
+    padding: 15px 25px;
     font-size: 1.1em;
-    color: var(--text-color);
-    transition: color 0.8s ease;
-}
-.stats-text.clicks-to-next {
-    font-size: 0.95em;
-    color: #777; /* Une couleur un peu plus subtile */
-    font-style: italic;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Overall Progress Bar (pour les rangs) */
-.progress-bar-overall-container {
-    width: 90%;
-    background-color: #eee;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 20px;
-    box-shadow: inset 0 1px 3px var(--shadow-light);
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.progress-bar-overall {
-    height: 100%;
-    width: 0%;
-    background-color: var(--primary-red);
-    border-radius: 10px;
-    transition: width 0.4s ease-out;
+button:hover {
+    background-color: #a32520; /* Rouge plus foncé au survol */
 }
 
-.footer {
-    margin-top: auto; /* Pousse le footer vers le bas */
-    padding: 15px;
-    font-size: 0.95em;
-    color: #777;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    box-shadow: 0 -5px 20px var(--shadow-light);
-    width: 100%;
-    max-width: 650px;
-    transition: background-color 0.8s ease, color 0.8s ease, box-shadow 0.8s ease;
-}
-.footer p {
-    margin: 0; /* Réinitialise la marge des paragraphes dans le footer */
-    font-size: 0.9em;
+#channelLink {
+    margin-top: 30px;
+    font-size: 1.2em;
 }
 
-.alert-message {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #ffe0e0;
-    border: 1px solid var(--primary-red);
-    color: var(--primary-red);
-    border-radius: 10px;
-    font-weight: 600;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-.alert-message.active {
-    opacity: 1;
-    visibility: visible;
+#channelLink a {
+    color: #007bff; /* Couleur de lien standard */
+    text-decoration: none;
+    transition: color 0.5s ease;
 }
 
-
-/* --- CLASSES DE THÈMES DE PAGE COMPLETES --- */
-
-body.theme-bronze {
-    background: linear-gradient(135deg, var(--bronze-bg-start) 0%, var(--bronze-bg-end) 100%);
-    color: var(--bronze-text);
-}
-body.theme-bronze .container {
-    background-color: var(--bronze-box-bg);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-}
-body.theme-bronze h1, body.theme-bronze .stats-text {
-    color: var(--bronze-text);
-}
-body.theme-bronze .button {
-    background-color: var(--bronze-btn-bg);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
-}
-body.theme-bronze .button:hover {
-    background-color: color-mix(in srgb, var(--bronze-btn-bg) 80%, black);
-}
-body.theme-bronze .progress-bar-overall { /* Couleur de la barre de progression des rangs */
-    background-color: var(--bronze-btn-bg);
+#channelLink a:hover {
+    text-decoration: underline;
 }
 
+/* --- DÉFINITION DES THÈMES --- */
 
-/* Thème Argent */
-body.theme-silver {
-    background: linear-gradient(135deg, var(--silver-bg-start) 0%, var(--silver-bg-end) 100%);
-    color: var(--silver-text);
+/* Thème par défaut (initial) */
+.theme-default {
+    background-color: #f0f0f0;
+    color: #333;
 }
-body.theme-silver .container {
-    background-color: var(--silver-box-bg);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+.theme-default .container {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-body.theme-silver h1, body.theme-silver .stats-text {
-    color: var(--silver-text);
+.theme-default h1 {
+    color: #c4302b;
 }
-body.theme-silver .button {
-    background-color: var(--silver-btn-bg);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
-}
-body.theme-silver .button:hover {
-    background-color: color-mix(in srgb, var(--silver-btn-bg) 80%, black);
-}
-body.theme-silver .progress-bar-overall {
-    background-color: var(--silver-btn-bg);
+.theme-default #channelLink a {
+    color: #007bff;
 }
 
-
-/* Thème Or */
-body.theme-gold {
-    background: linear-gradient(135deg, var(--gold-bg-start) 0%, var(--gold-bg-end) 100%);
-    color: var(--gold-text);
+/* Thème Sombre */
+.theme-dark {
+    background-color: #333;
+    color: #f0f0f0;
 }
-body.theme-gold .container {
-    background-color: var(--gold-box-bg);
-    box-shadow: 0 12px 40px rgba(255, 215, 0, 0.4);
+.theme-dark .container {
+    background-color: #444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
-body.theme-gold h1, body.theme-gold .stats-text {
-    color: var(--gold-text);
+.theme-dark h1 {
+    color: #ff6b6b; /* Rouge plus clair pour le sombre */
 }
-body.theme-gold .button {
-    background-color: var(--gold-btn-bg);
-    box-shadow: 0 8px 18px rgba(255, 215, 0, 0.4);
+.theme-dark button {
+    background-color: #666;
 }
-body.theme-gold .button:hover {
-    background-color: color-mix(in srgb, var(--gold-btn-bg) 80%, black);
+.theme-dark button:hover {
+    background-color: #888;
 }
-body.theme-gold .progress-bar-overall {
-    background-color: var(--gold-btn-bg);
+.theme-dark #channelLink a {
+    color: #90caf9; /* Bleu clair pour le sombre */
 }
 
-
-/* Thème Platine */
-body.theme-platinum {
-    background: linear-gradient(135deg, var(--platinum-bg-start) 0%, var(--platinum-bg-end) 100%);
-    color: var(--platinum-text);
+/* Thème Agressif / Vif */
+.theme-vibrant {
+    background-color: #ffeb3b; /* Jaune vif */
+    color: #333;
 }
-body.theme-platinum .container {
-    background-color: var(--platinum-box-bg);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+.theme-vibrant .container {
+    background-color: #fdd835; /* Jaune un peu plus foncé */
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.5); /* Ombre orangée */
 }
-body.theme-platinum h1, body.theme-platinum .stats-text {
-    color: var(--platinum-text);
+.theme-vibrant h1 {
+    color: #e65100; /* Orange foncé */
 }
-body.theme-platinum .button {
-    background-color: var(--platinum-btn-bg);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+.theme-vibrant button {
+    background-color: #ff9800; /* Orange */
 }
-body.theme-platinum .button:hover {
-    background-color: color-mix(in srgb, var(--platinum-btn-bg) 80%, black);
+.theme-vibrant button:hover {
+    background-color: #fb8c00;
 }
-body.theme-platinum .progress-bar-overall {
-    background-color: var(--platinum-btn-bg);
+.theme-vibrant #channelLink a {
+    color: #ad1457; /* Rose foncé */
 }
 
-
-/* Thème Diamant */
-body.theme-diamond {
-    background: linear-gradient(135deg, var(--diamond-bg-start) 0%, var(--diamond-bg-end) 100%);
-    color: var(--diamond-text);
+/* Thème Marin / Bleu */
+.theme-blue {
+    background-color: #e3f2fd; /* Bleu très clair */
+    color: #1a237e; /* Bleu très foncé */
 }
-body.theme-diamond .container {
-    background-color: var(--diamond-box-bg);
-    box-shadow: 0 12px 40px rgba(0, 123, 255, 0.3);
+.theme-blue .container {
+    background-color: #bbdefb; /* Bleu clair */
+    box-shadow: 0 4px 10px rgba(40, 53, 147, 0.3); /* Ombre bleue foncée */
 }
-body.theme-diamond h1, body.theme-diamond .stats-text {
-    color: var(--diamond-text);
+.theme-blue h1 {
+    color: #283593; /* Bleu foncé */
 }
-body.theme-diamond .button {
-    background-color: var(--diamond-btn-bg);
-    box-shadow: 0 8px 18px rgba(0, 123, 255, 0.4);
+.theme-blue button {
+    background-color: #1976d2; /* Bleu */
 }
-body.theme-diamond .button:hover {
-    background-color: color-mix(in srgb, var(--diamond-btn-bg) 80%, black);
+.theme-blue button:hover {
+    background-color: #1565c0;
 }
-body.theme-diamond .progress-bar-overall {
-    background-color: var(--diamond-btn-bg);
-}
-
-/* Thème Maître (Nouveau) */
-body.theme-master {
-    background: linear-gradient(135deg, var(--master-bg-start) 0%, var(--master-bg-end) 100%);
-    color: var(--master-text);
-}
-body.theme-master .container {
-    background-color: var(--master-box-bg);
-    box-shadow: 0 12px 40px rgba(255, 69, 0, 0.5);
-}
-body.theme-master h1, body.theme-master .stats-text {
-    color: var(--master-text);
-}
-body.theme-master .button {
-    background-color: var(--master-btn-bg);
-    box-shadow: 0 8px 18px rgba(255, 69, 0, 0.6);
-}
-body.theme-master .button:hover {
-    background-color: color-mix(in srgb, var(--master-btn-bg) 80%, black);
-}
-body.theme-master .progress-bar-overall {
-    background-color: var(--master-btn-bg);
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px;
-    }
-    .header-link.discord-link {
-        margin-top: 5px;
-    }
-    h1 {
-        font-size: 2.2em;
-    }
-    .button {
-        font-size: 1.2em;
-        padding: 12px 30px;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 30px;
-    }
-    h1 {
-        font-size: 1.8em;
-    }
-    p {
-        font-size: 1em;
-    }
-    .button {
-        font-size: 1.1em;
-        padding: 10px 25px;
-    }
-    .footer {
-        padding: 10px;
-    }
+.theme-blue #channelLink a {
+    color: #0d47a1; /* Bleu très foncé */
 }
