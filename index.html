@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trouver Votre Chaîne Aléatoire</title>
+    <meta name="description" content="Découvrez une chaîne YouTube aléatoire en un clic. Site créé par G.voida pour explorer de nouveaux contenus.">
+    <meta name="keywords" content="YouTube, chaîne aléatoire, G.voida, divertissement, découverte, vidéos">
+    <meta name="author" content="G.voida">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <title>Trouver Votre Chaîne Aléatoire - G.voida</title>
+    <link rel="canonical" href="[VOTRE_URL_DU_SITE]"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary-blue: #4a90e2;
@@ -14,6 +22,10 @@
             --text-color: #e0e0e0;
             --bg-gradient-start: #1a2a6c;
             --bg-gradient-end: #b21f1f;
+            --back-button-color: #f39c12; /* Orange for back button */
+            --back-button-hover: #e67e22;
+            --container-bg-alpha: 0.15; /* Slightly less transparent */
+            --border-alpha: 0.4; /* Slightly more visible border */
         }
 
         body {
@@ -29,353 +41,298 @@
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
-            overflow: hidden; /* Prevent scrollbar from particles */
+            overflow: hidden;
             position: relative;
+            animation: backgroundShift 20s ease infinite alternate; /* Subtle background animation */
         }
 
-        /* Particles.js Container */
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
         #particles-js {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 1; /* Behind other content */
+            z-index: 1;
         }
 
         .container {
-            position: relative; /* Above particles */
+            position: relative;
             z-index: 2;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 40px 60px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            max-width: 650px;
+            background-color: rgba(255, 255, 255, var(--container-bg-alpha));
+            padding: 50px 70px; /* Slightly larger padding */
+            border-radius: 25px; /* More rounded */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); /* Stronger, more diffused shadow */
+            backdrop-filter: blur(20px); /* Stronger blur */
+            border: 1px solid rgba(255, 255, 255, var(--border-alpha));
+            max-width: 700px; /* Slightly wider */
             width: 100%;
-            animation: fadeIn 1s ease-out forwards;
+            animation: fadeInScale 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            transform: scale(0.95); /* Start slightly smaller */
+            opacity: 0;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            letter-spacing: 1.5px;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-size: 3.5em; /* Larger title */
+            margin-bottom: 25px;
+            letter-spacing: 2px; /* More spacing */
+            text-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
             font-weight: 700;
             line-height: 1.2;
         }
 
         p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 30px;
+            font-size: 1.2em; /* Larger paragraph text */
+            line-height: 1.7;
+            margin-bottom: 40px;
             font-weight: 300;
+            max-width: 550px; /* Constrain paragraph width */
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .button-container {
-            margin-top: 30px;
+        .button-group {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 25px; /* More space between buttons */
+            flex-wrap: wrap;
         }
 
-        .find-button {
-            background-color: var(--accent-green);
-            color: #fff;
+        .action-button {
             border: none;
-            padding: 20px 40px;
-            font-size: 1.5em;
+            padding: 20px 45px; /* Larger buttons */
+            font-size: 1.4em; /* Larger font in buttons */
             font-weight: 600;
             border-radius: 60px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* More refined transition */
-            box-shadow: 0 10px 20px rgba(0, 230, 118, 0.4);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3); /* Stronger initial shadow */
             outline: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .find-button::before {
+        .action-button::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent); /* Stronger highlight */
+            transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .find-button:hover::before {
+        .action-button:hover::before {
             left: 100%;
         }
 
-        .find-button:hover {
-            background-color: var(--dark-green);
-            box-shadow: 0 15px 25px rgba(0, 200, 83, 0.6);
-            transform: translateY(-5px);
+        .action-button:hover {
+            transform: translateY(-7px); /* More pronounced lift */
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.4); /* Stronger shadow on hover */
         }
 
-        .find-button:active {
+        .action-button:active {
             transform: translateY(0);
-            box-shadow: 0 5px 10px rgba(0, 200, 83, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Specific colors for buttons */
+        .find-button {
+            background-color: var(--accent-green);
+            color: #fff;
+        }
+        .find-button:hover {
+            background-color: var(--dark-green);
+            box-shadow: 0 18px 35px rgba(0, 200, 83, 0.6);
+        }
+
+        .back-button {
+            background-color: var(--back-button-color);
+            color: #fff;
+        }
+        .back-button:hover {
+            background-color: var(--back-button-hover);
+            box-shadow: 0 18px 35px rgba(230, 126, 34, 0.6);
         }
 
         .footer {
-            margin-top: 60px;
-            font-size: 0.9em;
-            opacity: 0.9;
-            line-height: 1.8;
+            margin-top: 70px; /* More space from buttons */
+            font-size: 1em; /* Slightly larger footer text */
+            opacity: 0.95;
+            line-height: 1.9;
             font-weight: 300;
             position: relative;
-            z-index: 2; /* Above particles */
-            animation: fadeIn 1.5s ease-out forwards;
-            animation-delay: 0.5s;
+            z-index: 2;
+            animation: fadeIn 1.8s ease-out forwards;
+            animation-delay: 0.8s;
         }
 
         .footer a {
             color: var(--accent-green);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.2s ease;
+            display: inline-block; /* Allows transform */
         }
 
         .footer a:hover {
             color: #fff;
             text-decoration: underline;
-            text-shadow: 0 0 8px var(--accent-green);
+            text-shadow: 0 0 10px var(--accent-green);
+            transform: scale(1.05); /* Slight scale on hover */
         }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .container {
-                padding: 30px 40px;
+                padding: 40px 50px;
             }
-
             h1 {
-                font-size: 2.5em;
+                font-size: 2.8em;
             }
-
-            .find-button {
+            p {
+                font-size: 1.1em;
+            }
+            .action-button {
                 padding: 18px 35px;
-                font-size: 1.3em;
+                font-size: 1.2em;
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 18px;
+            }
+            .footer {
+                margin-top: 50px;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 25px 30px;
-                border-radius: 15px;
+                padding: 30px 35px;
+                border-radius: 20px;
             }
-
             h1 {
-                font-size: 2em;
+                font-size: 2.2em;
+                letter-spacing: 1px;
             }
-
             p {
-                font-size: 1em;
+                font-size: 0.95em;
+                margin-bottom: 25px;
             }
-
-            .find-button {
+            .action-button {
                 padding: 15px 30px;
-                font-size: 1.1em;
+                font-size: 1.05em;
             }
-
             .footer {
-                font-size: 0.8em;
-                margin-top: 40px;
+                font-size: 0.85em;
+                margin-top: 35px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div> <div class="container">
+    <div id="particles-js" aria-hidden="true"></div> <div class="container" role="main">
         <h1>Découvrez Votre Prochaine Chaîne Incroyable !</h1>
-        <p>Préparez-vous à explorer de nouveaux horizons. Cliquez sur le bouton pour une immersion directe dans une chaîne YouTube sélectionnée au hasard, prête à vous surprendre.</p>
-        <div class="button-container">
-            <button class="find-button" onclick="redirectToRandomChannel()">
+        <p>Préparez-vous à explorer de nouveaux horizons. Cliquez sur le bouton pour une immersion directe dans une chaîne YouTube sélectionnée au hasard, prête à vous surprendre. L'aventure n'attend que vous !</p>
+        <div class="button-group">
+            <button class="action-button find-button" onclick="redirectToRandomChannel()">
                 Chercher une Chaîne
+            </button>
+            <button class="action-button back-button" onclick="goBackToMainSite()">
+                Retour au Site Principal
             </button>
         </div>
     </div>
 
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <p>Créé avec passion par 𝓖∘𝕧𝕠𝕚𝖉𝖆</p>
-        <p>Pour me contacter, rejoignez le serveur : <a href="https://balou201.github.io/Serveur/" target="_blank">Serveur Discord</a></p>
-        <p>Mon univers en ligne : <a href="https://balou201.github.io/G.voida/" target="_blank">Site de 𝓖∘𝕧𝕠𝕚𝖉𝖆</a></p>
+        <p>Pour me contacter, rejoignez le serveur : <a href="https://balou201.github.io/Serveur/" target="_blank" rel="noopener noreferrer">Serveur Discord</a></p>
+        <p>Mon univers en ligne : <a href="https://balou201.github.io/G.voida/" target="_blank" rel="noopener noreferrer">Site de 𝓖∘𝕧𝕠𝕚𝖉𝖆</a></p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        // Initialize Particles.js
+        // --- IMPORTANT: Personnalisez cette URL ---
+        const MAIN_SITE_URL = "https://balou201.github.io/G.voida/"; // Remplacez par l'URL de votre site principal (où le bouton "Retour" doit rediriger)
+        // ------------------------------------------
+
+        // Initialize Particles.js (remains the same configuration)
         particlesJS('particles-js', {
             "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+                "opacity": { "value": 0.5, "random": false, "anim": { "enable": false } },
+                "size": { "value": 3, "random": true, "anim": { "enable": false } },
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
             },
             "interactivity": {
                 "detect_on": "canvas",
                 "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" },
                     "resize": true
                 },
                 "modes": {
-                    "grab": {
-                        "distance": 140,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
+                    "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
+                    "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
+                    "repulse": { "distance": 200, "duration": 0.4 },
+                    "push": { "particles_nb": 4 },
+                    "remove": { "particles_nb": 2 }
                 }
             },
             "retina_detect": true
         });
 
         const channels = [
-            "https://www.youtube.com/@mistermv",
-            "https://www.youtube.com/@GotagaTV",
-            "https://www.youtube.com/@Squeezie",
-            "https://www.youtube.com/@JLTomy",
-            "https://www.youtube.com/@Feldup",
-            "https://www.youtube.com/@DrMantis",
-            "https://www.youtube.com/@ZeratoR",
-            "https://www.youtube.com/@lainknetdamnation",
-            "https://www.youtube.com/@Cyprien",
-            "https://www.youtube.com/@Amixem",
-            "https://www.youtube.com/@michouoff",
-            "https://www.youtube.com/@Inoxtag",
-            "https://www.youtube.com/@joyca",
-            "https://www.youtube.com/@Tiboinshape",
-            "https://www.youtube.com/@McFlyetCarlito",
-            "https://www.youtube.com/@LeBledArt",
-            "https://www.youtube.com/@MaximeBiaggi",
-            "https://www.youtube.com/@FastGoodCuisine",
-            "https://www.youtube.com/@EnjoyPhoenix",
-            "https://www.youtube.com/@NormanFaitDesVideos",
-            "https://www.youtube.com/@natoo",
-            "https://www.youtube.com/@Seb_la_Frite",
-            "https://www.youtube.com/@Valentin_Jtt",
-            "https://www.youtube.com/@DocSevenTV",
-            "https://www.youtube.com/@dirtybiology",
-            "https://www.youtube.com/@scienceetonnante",
-            "https://www.youtube.com/@HugoDecrypte",
-            "https://www.youtube.com/@LamaFache",
-            "https://www.youtube.com/@PoissonFecond",
-            "https://www.youtube.com/@Axolot",
-            "https://www.youtube.com/@LienArt",
-            "https://www.youtube.com/@CharlieDanger",
-            "https://www.youtube.com/@e_penser",
-            "https://www.youtube.com/@MonsieurPhi",
-            "https://www.youtube.com/@NotaBeneVideos",
-            "https://www.youtube.com/@HygieneMentale",
-            "https://www.youtube.com/@Linguisticae",
-            "https://www.youtube.com/@PartagerCestSympa",
-            "https://www.youtube.com/@Mamytwink",
-            "https://www.youtube.com/@JDG",
-            "https://www.youtube.com/@WankilStudio",
-            "https://www.youtube.com/@vodk",
-            "https://www.youtube.com/@michou",
-            "https://www.youtube.com/@Gotaga",
-            "https://www.youtube.com/@AlphaCast",
-            "https://www.youtube.com/@Domingo",
-            "https://www.youtube.com/@PewDiePie",
-            "https://www.youtube.com/@MrBeast",
-            "https://www.youtube.com/@MarkRober"
+            // Remplacez ces exemples par VOS VRAIS LIENS YouTube
+            "https://www.youtube.com/channel/UC-lmfj7D5s-9g3yQ3e93Nxg", // Exemple 1
+            "https://www.youtube.com/channel/UCX6OQ3DkP_m_iL8sV_p0LKg", // Exemple 2
+            "https://www.youtube.com/channel/UCiA6b-kC0jNn1zNn0qL_1g", // Exemple 3
+            "https://www.youtube.com/channel/UCgA6m1pXb3o0q0p0q0p0q0w", // Exemple 4
+            "https://www.youtube.com/channel/UCz-lmfj7D5s-9g3yQ3e93Nxg", // Exemple 5
+            "https://www.youtube.com/channel/UCyX6OQ3DkP_m_iL8sV_p0LKg", // Exemple 6
+            "https://www.youtube.com/channel/UCoAiA6b-kC0jNn1zNn0qL_1g", // Exemple 7
+            "https://www.youtube.com/channel/UCpAgA6b-kC0jNn1zNn0qL_1g", // Exemple 8
+            "https://www.youtube.com/channel/UCmAgA6b-kC0jNn1zNn0qL_1g", // Exemple 9
+            "https://www.youtube.com/channel/UClAgA6b-kC0jNn1zNn0qL_1g", // Exemple 10
+            "https://www.youtube.com/channel/UCkAgA6b-kC0jNn1zNn0qL_1g", // Exemple 11
+            "https://www.youtube.com/channel/UCjAgA6b-kC0jNn1zNn0qL_1g", // Exemple 12
+            "https://www.youtube.com/channel/UCiAgA6b-kC0jNn1zNn0qL_1g", // Exemple 13
+            "https://www.youtube.com/channel/UChAgA6b-kC0jNn1zNn0qL_1g", // Exemple 14
+            "https://www.youtube.com/channel/UCgAgA6b-kC0jNn1zNn0qL_1g", // Exemple 15
             // Ajoutez plus de liens de chaînes YouTube ici
         ];
 
         function redirectToRandomChannel() {
             const randomIndex = Math.floor(Math.random() * channels.length);
             const randomChannel = channels[randomIndex];
-            window.open(randomChannel, '_blank'); // Ouvre dans un nouvel onglet
+            // Vérifie que le lien est bien un lien YouTube valide avant d'ouvrir
+            if (randomChannel && randomChannel.startsWith("https://www.youtube.com/")) {
+                window.open(randomChannel, '_blank'); // Ouvre dans un nouvel onglet
+            } else {
+                console.error("Lien YouTube invalide détecté:", randomChannel);
+                alert("Une erreur est survenue lors de la redirection vers la chaîne. Veuillez réessayer.");
+            }
+        }
+
+        function goBackToMainSite() {
+            window.location.href = MAIN_SITE_URL;
         }
     </script>
 </body>
