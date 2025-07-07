@@ -1,161 +1,86 @@
 /* styles.css */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; /* Police moderne */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    transition: background-color 0.5s ease, color 0.5s ease; /* Transition douce pour les changements de thème */
-}
-
-/* Positionnement du bouton de thème */
-.theme-toggle-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #555;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 0.9em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    z-index: 1000; /* Assure qu'il est au-dessus du reste */
-}
-
-.theme-toggle-button:hover {
-    background-color: #777;
+    background-color: #f4f7f6; /* Fond très clair et doux */
+    color: #333;
+    line-height: 1.6;
 }
 
 .container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Fond blanc pur pour le conteneur */
+    padding: 60px 40px; /* Plus d'espace intérieur */
+    border-radius: 12px; /* Bords légèrement plus arrondis */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Ombre plus douce et diffuse */
     text-align: center;
-    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    max-width: 500px; /* Limite la largeur pour une meilleure lisibilité */
+    width: 90%; /* Responsive sur petits écrans */
+    animation: fadeIn 1s ease-out; /* Animation d'apparition */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h1 {
-    color: #c4302b; /* Couleur rouge YouTube */
-    margin-bottom: 20px;
-    transition: color 0.5s ease;
+    color: #e53935; /* Un rouge YouTube un peu plus vif */
+    margin-bottom: 35px;
+    font-size: 2.2em; /* Taille de police plus grande */
+    font-weight: 600; /* Texte plus gras */
 }
 
 button {
-    background-color: #c4302b; /* Couleur rouge YouTube */
+    background-color: #e53935; /* Rouge YouTube */
     color: white;
     border: none;
-    padding: 15px 25px;
-    font-size: 1.1em;
-    border-radius: 5px;
+    padding: 16px 32px; /* Plus grand pour le clic */
+    font-size: 1.2em;
+    font-weight: 500;
+    border-radius: 8px; /* Bords arrondis pour le bouton */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3); /* Ombre pour le bouton */
 }
 
 button:hover {
-    background-color: #a32520; /* Rouge plus foncé au survol */
+    background-color: #d32f2f; /* Rouge plus foncé au survol */
+    transform: translateY(-2px); /* Léger soulèvement au survol */
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4);
 }
 
-#channelLink {
-    margin-top: 30px;
-    font-size: 1.2em;
+button:active {
+    transform: translateY(0); /* Redescend au clic */
+    box-shadow: 0 2px 10px rgba(229, 57, 53, 0.2);
 }
 
-#channelLink a {
-    color: #007bff; /* Couleur de lien standard */
+/* Style du pied de page */
+.footer {
+    margin-top: 50px;
+    padding: 20px;
+    color: #777; /* Gris léger */
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.footer a {
+    color: #4285f4; /* Bleu Google pour les liens */
     text-decoration: none;
-    transition: color 0.5s ease;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-#channelLink a:hover {
+.footer a:hover {
+    color: #3367d6; /* Bleu plus foncé au survol */
     text-decoration: underline;
-}
-
-/* --- DÉFINITION DES THÈMES --- */
-
-/* Thème par défaut (initial) */
-.theme-default {
-    background-color: #f0f0f0;
-    color: #333;
-}
-.theme-default .container {
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.theme-default h1 {
-    color: #c4302b;
-}
-.theme-default #channelLink a {
-    color: #007bff;
-}
-
-/* Thème Sombre */
-.theme-dark {
-    background-color: #333;
-    color: #f0f0f0;
-}
-.theme-dark .container {
-    background-color: #444;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-.theme-dark h1 {
-    color: #ff6b6b; /* Rouge plus clair pour le sombre */
-}
-.theme-dark button {
-    background-color: #666;
-}
-.theme-dark button:hover {
-    background-color: #888;
-}
-.theme-dark #channelLink a {
-    color: #90caf9; /* Bleu clair pour le sombre */
-}
-
-/* Thème Agressif / Vif */
-.theme-vibrant {
-    background-color: #ffeb3b; /* Jaune vif */
-    color: #333;
-}
-.theme-vibrant .container {
-    background-color: #fdd835; /* Jaune un peu plus foncé */
-    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.5); /* Ombre orangée */
-}
-.theme-vibrant h1 {
-    color: #e65100; /* Orange foncé */
-}
-.theme-vibrant button {
-    background-color: #ff9800; /* Orange */
-}
-.theme-vibrant button:hover {
-    background-color: #fb8c00;
-}
-.theme-vibrant #channelLink a {
-    color: #ad1457; /* Rose foncé */
-}
-
-/* Thème Marin / Bleu */
-.theme-blue {
-    background-color: #e3f2fd; /* Bleu très clair */
-    color: #1a237e; /* Bleu très foncé */
-}
-.theme-blue .container {
-    background-color: #bbdefb; /* Bleu clair */
-    box-shadow: 0 4px 10px rgba(40, 53, 147, 0.3); /* Ombre bleue foncée */
-}
-.theme-blue h1 {
-    color: #283593; /* Bleu foncé */
-}
-.theme-blue button {
-    background-color: #1976d2; /* Bleu */
-}
-.theme-blue button:hover {
-    background-color: #1565c0;
-}
-.theme-blue #channelLink a {
-    color: #0d47a1; /* Bleu très foncé */
 }
