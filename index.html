@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trouver une Chaîne Aléatoire</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Trouver Votre Chaîne Aléatoire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #4a90e2;
+            --dark-blue: #2c519c;
+            --accent-green: #00e676;
+            --dark-green: #00c853;
+            --text-color: #e0e0e0;
+            --bg-gradient-start: #1a2a6c;
+            --bg-gradient-end: #b21f1f;
+        }
+
         body {
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #2a2a72 0%, #009ffd 100%);
-            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,50 +29,96 @@
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
+            overflow: hidden; /* Prevent scrollbar from particles */
+            position: relative;
+        }
+
+        /* Particles.js Container */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Behind other content */
         }
 
         .container {
+            position: relative; /* Above particles */
+            z-index: 2;
             background-color: rgba(255, 255, 255, 0.1);
             padding: 40px 60px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 600px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 650px;
             width: 100%;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            font-size: 2.8em;
+            font-size: 3em;
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
             margin-bottom: 30px;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 300;
         }
 
         .button-container {
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .find-button {
-            background-color: #00e676; /* Green */
+            background-color: var(--accent-green);
             color: #fff;
             border: none;
-            padding: 18px 35px;
-            font-size: 1.4em;
-            font-weight: 700;
-            border-radius: 50px;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: 600;
+            border-radius: 60px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 15px rgba(0, 230, 118, 0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* More refined transition */
+            box-shadow: 0 10px 20px rgba(0, 230, 118, 0.4);
             outline: none;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .find-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .find-button:hover::before {
+            left: 100%;
         }
 
         .find-button:hover {
-            background-color: #00c853; /* Darker green */
-            box-shadow: 0 12px 20px rgba(0, 200, 83, 0.5);
-            transform: translateY(-3px);
+            background-color: var(--dark-green);
+            box-shadow: 0 15px 25px rgba(0, 200, 83, 0.6);
+            transform: translateY(-5px);
         }
 
         .find-button:active {
@@ -71,22 +127,28 @@
         }
 
         .footer {
-            margin-top: 50px;
+            margin-top: 60px;
             font-size: 0.9em;
-            opacity: 0.8;
-            line-height: 1.6;
+            opacity: 0.9;
+            line-height: 1.8;
+            font-weight: 300;
+            position: relative;
+            z-index: 2; /* Above particles */
+            animation: fadeIn 1.5s ease-out forwards;
+            animation-delay: 0.5s;
         }
 
         .footer a {
-            color: #fff;
+            color: var(--accent-green);
             text-decoration: none;
-            font-weight: 700;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .footer a:hover {
-            color: #00e676;
+            color: #fff;
             text-decoration: underline;
+            text-shadow: 0 0 8px var(--accent-green);
         }
 
         /* Responsive adjustments */
@@ -96,51 +158,167 @@
             }
 
             h1 {
-                font-size: 2em;
+                font-size: 2.5em;
             }
 
             .find-button {
-                padding: 15px 30px;
-                font-size: 1.2em;
+                padding: 18px 35px;
+                font-size: 1.3em;
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 20px 25px;
+                padding: 25px 30px;
+                border-radius: 15px;
             }
 
             h1 {
-                font-size: 1.8em;
+                font-size: 2em;
+            }
+
+            p {
+                font-size: 1em;
             }
 
             .find-button {
-                padding: 12px 25px;
-                font-size: 1em;
+                padding: 15px 30px;
+                font-size: 1.1em;
             }
 
             .footer {
                 font-size: 0.8em;
+                margin-top: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Trouvez Votre Prochaine Chaîne Aléatoire</h1>
-        <p>Cliquez sur le bouton ci-dessous pour être redirigé vers une chaîne YouTube choisie au hasard.</p>
+    <div id="particles-js"></div> <div class="container">
+        <h1>Découvrez Votre Prochaine Chaîne Incroyable !</h1>
+        <p>Préparez-vous à explorer de nouveaux horizons. Cliquez sur le bouton pour une immersion directe dans une chaîne YouTube sélectionnée au hasard, prête à vous surprendre.</p>
         <div class="button-container">
-            <button class="find-button" onclick="redirectToRandomChannel()">Chercher une Chaîne</button>
+            <button class="find-button" onclick="redirectToRandomChannel()">
+                Chercher une Chaîne
+            </button>
         </div>
     </div>
 
     <footer class="footer">
-        <p>Créé par 𝓖∘𝕧𝕠𝕚𝖉𝖆</p>
-        <p>Pour contacter 𝓖∘𝕧𝕠𝕚𝖉𝖆, rejoignez le serveur : <a href="https://balou201.github.io/Serveur/" target="_blank">Serveur Discord</a></p>
-        <p>Visitez le site de 𝓖∘𝕧𝕠𝕚𝖉𝖆 : <a href="https://balou201.github.io/G.voida/" target="_blank">Site de 𝓖∘𝕧𝕠𝕚𝖉𝖆</a></p>
+        <p>Créé avec passion par 𝓖∘𝕧𝕠𝕚𝖉𝖆</p>
+        <p>Pour me contacter, rejoignez le serveur : <a href="https://balou201.github.io/Serveur/" target="_blank">Serveur Discord</a></p>
+        <p>Mon univers en ligne : <a href="https://balou201.github.io/G.voida/" target="_blank">Site de 𝓖∘𝕧𝕠𝕚𝖉𝖆</a></p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
         const channels = [
             "https://www.youtube.com/@mistermv",
             "https://www.youtube.com/@GotagaTV",
@@ -188,16 +366,16 @@
             "https://www.youtube.com/@Gotaga",
             "https://www.youtube.com/@AlphaCast",
             "https://www.youtube.com/@Domingo",
-            "https://www.youtube.com/@PewDiePie", // Example non-French channel
-            "https://www.youtube.com/@MrBeast", // Example non-French channel
-            "https://www.youtube.com/@MarkRober" // Example non-French channel
-            // Add more YouTube channel links here
+            "https://www.youtube.com/@PewDiePie",
+            "https://www.youtube.com/@MrBeast",
+            "https://www.youtube.com/@MarkRober"
+            // Ajoutez plus de liens de chaînes YouTube ici
         ];
 
         function redirectToRandomChannel() {
             const randomIndex = Math.floor(Math.random() * channels.length);
             const randomChannel = channels[randomIndex];
-            window.open(randomChannel, '_blank'); // Opens in a new tab
+            window.open(randomChannel, '_blank'); // Ouvre dans un nouvel onglet
         }
     </script>
 </body>
