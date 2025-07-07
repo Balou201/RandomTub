@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
         } else {
             // Affiche une alerte si le tableau de chaînes est vide ou non défini
-            alert("Désolé, aucune chaîne YouTube n'a été trouvée dans la liste. Veuillez contacter l'administrateur.");
+            alert("Oups ! Il semble qu'il n'y ait pas de chaînes YouTube à explorer. Veuillez vérifier le fichier 'youtube-channels.js' ou contacter l'administrateur.");
         }
     });
 });
