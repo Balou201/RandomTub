@@ -6,23 +6,34 @@
     <title>Découvrez une Chaîne YouTube Aléatoire</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
+    <header class="header" role="banner">
+        <p class="creator-info">Créé par G.voida.</p>
+        <a href="https://discord.gg/ye8MhVUdWU" target="_blank" rel="noopener noreferrer" class="discord-link header-link" aria-label="Rejoindre notre serveur Discord">
+            <i class="fab fa-discord"></i> Rejoindre le Discord
+        </a>
+    </header>
+
     <div class="container" id="mainContainer" role="main" aria-live="polite" aria-atomic="true">
         <h1 id="pageTitle">Découvrez une Chaîne YouTube Aléatoire !</h1>
         <p id="pageDescription">Cliquez sur le bouton ci-dessous pour être instantanément redirigé vers une chaîne YouTube choisie aléatoirement parmi notre sélection. Une petite surprise vous attend !</p>
         
         <button class="button" id="surpriseButton" aria-label="Lancer la découverte d'une chaîne YouTube aléatoire">
             <i class="fas fa-magic"></i>
-            <span>Trouver une chaîne</span> </button>
+            <span id="buttonText">Surprenez-moi !</span> </button>
 
         <div class="stats-area">
             <p class="stats-text">
-                Rangs : <span id="clickRank">Bronze</span> (Cliquez <span id="clicksToNextRank">?</span> fois pour le suivant !)
+                Vous avez cliqué <span id="clickCountDisplay">0</span> fois et atteint le rang <span id="clickRank">Bronze</span> !
             </p>
             <div class="progress-bar-overall-container">
                 <div class="progress-bar-overall" id="overallProgressBar"></div>
             </div>
+            <p class="stats-text clicks-to-next">
+                Prochain rang en <span id="clicksToNextRank">?</span> clics !
+            </p>
         </div>
 
         <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Chargement de la chaîne YouTube">
@@ -37,14 +48,8 @@
         </div>
     </div>
 
-    <div class="discord-link-wrapper">
-        <a href="https://discord.gg/ye8MhVUdWU" target="_blank" rel="noopener noreferrer" class="discord-link" aria-label="Rejoindre notre serveur Discord">
-            <i class="fab fa-discord"></i> Rejoindre le Discord
-        </a>
-    </div>
-
     <footer class="footer" role="contentinfo">
-        <span>Créé par G.voida.</span>
+        <p>&copy; 2025 Votre Nom ou Projet. Tous droits réservés.</p>
     </footer>
 
     <script src="youtube-channels.js"></script>
