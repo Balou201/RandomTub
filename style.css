@@ -1,186 +1,262 @@
 /* styles.css */
 
-/* Importation de la police Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
+/* --- Variables CSS pour une personnalisation facile --- */
 :root {
-    /* Variables de couleurs pour une gestion facile */
-    --primary-red: #ff0000; /* Le vrai rouge YouTube */
-    --primary-red-dark: #cc0000;
-    --background-light: #f8faff; /* Un blanc bleuté très doux */
-    --background-gradient-start: #e0f2f7;
-    --background-gradient-end: #c4e0e5;
-    --text-color-dark: #2c3e50;
-    --text-color-light: #6c757d;
-    --link-color: #3b82f6;
-    --link-hover-color: #2563eb;
-    --card-background: #ffffff;
+    --color-primary-youtube: #FF0000;
+    --color-secondary-dark: #212121;
+    --color-text-dark: #333;
+    --color-text-light: #555;
+    --color-background-start: #e0f7fa; /* Bleu très clair */
+    --color-background-end: #c0dfd9;   /* Vert d'eau très clair */
+    --color-card-bg: #ffffff;
+    --color-button-hover: #CC0000;
+    --color-link: #007bff;
+    --color-link-hover: #0056b3;
+
     --shadow-light: rgba(0, 0, 0, 0.08);
     --shadow-medium: rgba(0, 0, 0, 0.15);
-    --shadow-deep: rgba(0, 0, 0, 0.25);
-    --button-shadow-light: rgba(255, 0, 0, 0.4);
-    --button-shadow-hover: rgba(255, 0, 0, 0.6);
+    --shadow-heavy: rgba(0, 0, 0, 0.25);
+
+    --border-radius-card: 18px;
+    --border-radius-button: 50px;
 }
 
+/* --- Base et Typographie --- */
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
-    color: var(--text-color-dark);
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; /* Pour positionner l'animation de fond */
+    overflow: hidden; /* Empêche les barres de défilement */
+    color: var(--color-text-dark);
     line-height: 1.6;
-    overflow: hidden;
-    padding: 20px; /* Ajoute un peu de padding pour éviter que le contenu touche les bords sur mobile */
-    box-sizing: border-box; /* Inclut le padding dans la largeur/hauteur totale */
 }
 
+/* --- Animation de Fond Complexe --- */
+.background-animation {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        var(--color-background-start) 0%,
+        var(--color-background-end) 25%,
+        #d1c4e9 50%, /* Une touche de violet clair */
+        #ffecb3 75%, /* Une touche de jaune pâle */
+        var(--color-background-start) 100%
+    );
+    background-size: 400% 400%; /* Permet le mouvement du dégradé */
+    animation: gradientShift 20s ease infinite alternate; /* Animation fluide et infinie */
+    z-index: -1; /* Place en arrière-plan */
+    filter: blur(80px); /* Flou pour un effet doux et abstrait */
+    opacity: 0.8;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* --- Conteneur Principal (Carte) --- */
 .container {
-    background-color: var(--card-background);
-    padding: 60px 50px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px var(--shadow-medium); /* Ombre élégante */
+    background-color: var(--color-card-bg);
+    padding: 70px 60px; /* Plus d'espace intérieur pour un look premium */
+    border-radius: var(--border-radius-card);
+    box-shadow: 0 25px 50px var(--shadow-heavy); /* Ombre plus profonde */
     text-align: center;
-    max-width: 650px; /* Légèrement plus large pour le texte */
-    width: 100%; /* Utilise 100% de la largeur disponible jusqu'à max-width */
-    animation: fadeInRise 1.2s ease-out forwards; /* Animation d'apparition plus douce */
+    max-width: 700px; /* Largeur généreuse */
+    width: 100%;
+    animation: fadeInScaleUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Courbe d'animation plus professionnelle */
     position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease; /* Pour un futur effet si besoin */
+    z-index: 10; /* Assure qu'il est au-dessus du fond */
+    overflow: hidden; /* Pour contenir les éventuels éléments enfants débordants */
 }
 
-@keyframes fadeInRise {
-    from { opacity: 0; transform: translateY(50px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes fadeInScaleUp {
+    from { opacity: 0; transform: scale(0.9) translateY(40px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-h1 {
-    color: var(--primary-red);
-    margin-bottom: 20px; /* Ajusté pour le sous-titre */
-    font-size: 2.8em;
+/* --- Titres et Sous-titres --- */
+.main-title {
+    font-family: 'Playfair Display', serif; /* Police distinctive pour le titre */
+    color: var(--color-primary-youtube);
+    margin-bottom: 25px;
+    font-size: 3.2em; /* Titre très grand */
     font-weight: 700;
-    line-height: 1.2;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Ombre de texte subtile */
+    line-height: 1.1;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.08); /* Ombre de texte plus visible */
 }
 
 .subtitle {
-    color: var(--text-color-light);
-    font-size: 1.15em;
-    margin-bottom: 45px; /* Plus d'espace avant le bouton */
+    color: var(--color-text-light);
+    font-size: 1.25em; /* Sous-titre plus grand et lisible */
+    margin-bottom: 50px;
     font-weight: 400;
+    max-width: 80%; /* Limite la largeur pour une meilleure lecture */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-button {
-    background-color: var(--primary-red);
+/* --- Bouton d'Action Héro --- */
+.hero-button {
+    background-color: var(--color-primary-youtube);
     color: white;
     border: none;
-    padding: 18px 38px;
-    font-size: 1.3em;
-    font-weight: 600;
-    border-radius: 50px;
+    padding: 20px 45px;
+    font-size: 1.5em; /* Bouton très grand et impactant */
+    font-weight: 700;
+    border-radius: var(--border-radius-button);
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 30px var(--button-shadow-light);
-    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    box-shadow: 0 12px 35px var(--color-primary-youtube), 0 5px 15px var(--shadow-medium); /* Double ombre pour profondeur */
+    letter-spacing: 1px;
     text-transform: uppercase;
-    outline: none; /* Supprime le contour bleu au clic sur certains navigateurs */
+    display: inline-flex; /* Permet d'aligner texte et icône */
+    align-items: center;
+    gap: 15px; /* Espace entre le texte et l'icône */
+    outline: none;
+    position: relative; /* Pour l'effet de ripple */
+    overflow: hidden; /* Pour cacher l'effet de ripple au-delà des bords */
 }
 
-button:hover {
-    background-color: var(--primary-red-dark);
-    transform: translateY(-4px); /* Soulèvement subtil */
-    box-shadow: 0 15px 40px var(--button-shadow-hover);
+.hero-button:hover {
+    background-color: var(--color-button-hover);
+    transform: translateY(-7px); /* Soulèvement prononcé */
+    box-shadow: 0 18px 50px var(--color-primary-youtube), 0 8px 25px var(--shadow-heavy);
 }
 
-button:active {
-    transform: translateY(-1px); /* Léger enfoncement au clic */
-    box-shadow: 0 8px 20px var(--button-shadow-light);
+.hero-button:active {
+    transform: translateY(-3px); /* Léger enfoncement au clic */
+    box-shadow: 0 10px 30px var(--color-primary-youtube), 0 4px 10px var(--shadow-medium);
 }
 
-/* Style du pied de page */
+.button-icon {
+    font-size: 1.2em; /* Taille de l'icône */
+    transition: transform 0.3s ease; /* Animation de l'icône */
+}
+
+.hero-button:hover .button-icon {
+    transform: rotate(10deg) scale(1.1); /* Rotation et léger agrandissement de l'icône au survol */
+}
+
+/* --- Effet Ripple (clic) --- */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+
+/* --- Pied de Page --- */
 .footer {
-    margin-top: 80px;
-    padding: 25px;
-    color: var(--text-color-light);
-    font-size: 0.9em;
+    margin-top: 100px; /* Grande marge pour séparer */
+    padding: 30px;
+    color: var(--color-text-light);
+    font-size: 1em; /* Taille légèrement plus grande */
     text-align: center;
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
+    z-index: 5; /* Assure qu'il est visible au-dessus de l'animation de fond */
 }
 
 .footer p {
-    margin: 8px 0;
+    margin: 10px 0;
 }
 
 .footer a {
-    color: var(--link-color);
+    color: var(--color-link);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .footer a:hover {
-    color: var(--link-hover-color);
+    color: var(--color-link-hover);
     text-decoration: underline; 
 }
 
+/* --- Animation du coeur --- */
 .heart {
-    color: var(--primary-red);
-    animation: pulse 1.5s infinite; /* Animation de battement de cœur */
+    color: var(--color-primary-youtube);
+    animation: pulse 1.5s infinite ease-in-out; 
+    display: inline-block; /* Pour que l'animation fonctionne */
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
 
-/* Media Queries pour la Responsivité */
+/* --- Media Queries pour la Responsivité (optimisation pour petits écrans) --- */
 @media (max-width: 768px) {
     .container {
-        padding: 40px 30px;
-        border-radius: 15px;
+        padding: 50px 30px;
     }
 
-    h1 {
-        font-size: 2em;
-        margin-bottom: 15px;
+    .main-title {
+        font-size: 2.5em;
     }
 
     .subtitle {
-        font-size: 1em;
-        margin-bottom: 30px;
-    }
-
-    button {
-        padding: 15px 30px;
         font-size: 1.1em;
     }
 
+    .hero-button {
+        padding: 16px 35px;
+        font-size: 1.2em;
+        gap: 10px;
+    }
+
     .footer {
-        margin-top: 50px;
-        font-size: 0.85em;
+        margin-top: 70px;
+        font-size: 0.9em;
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 30px 20px;
+        padding: 40px 20px;
+        border-radius: 15px;
     }
 
-    h1 {
-        font-size: 1.6em;
+    .main-title {
+        font-size: 2em;
     }
 
-    button {
+    .subtitle {
         font-size: 1em;
-        padding: 12px 25px;
+        margin-bottom: 40px;
+    }
+
+    .hero-button {
+        padding: 14px 30px;
+        font-size: 1.1em;
     }
 
     .footer {
-        padding: 15px;
+        margin-top: 50px;
+        padding: 20px;
     }
 }
