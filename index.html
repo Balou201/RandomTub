@@ -220,6 +220,58 @@
             visibility: visible;
         }
 
+        /* NOUVEAUX STYLES POUR LE BOUTON SELON LE NOMBRE DE CLICS */
+        .button.click-level-1 { /* Après 1 clic */
+            background-color: #28a745; /* Vert plus vif */
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.5); /* Ombre verte */
+            transform: scale(1.02); /* Légèrement plus grand */
+            animation: pulse-green 1.5s infinite alternate;
+        }
+
+        .button.click-level-2 { /* Après 5 clics */
+            background-color: #ffc107; /* Jaune */
+            color: var(--dark-grey); /* Texte plus foncé */
+            border: 3px solid var(--dark-grey);
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.6); /* Ombre jaune */
+            font-size: 1.5em; /* Plus grand */
+            animation: shake 0.5s infinite;
+        }
+
+        .button.click-level-3 { /* Après 10 clics */
+            background-color: #dc3545; /* Rouge d'alerte */
+            box-shadow: 0 0 25px rgba(220, 53, 69, 0.8); /* Ombre rouge éclatante */
+            transform: rotate(3deg) scale(1.05); /* Légèrement penché et plus grand */
+            border-radius: 50px; /* Forme de pilule */
+            animation: bounce 1s infinite;
+        }
+
+        /* NOUVELLES ANIMATIONS */
+        @keyframes pulse-green {
+            from { transform: scale(1.02); }
+            to { transform: scale(1.06); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) rotate(3deg) scale(1.05);
+            }
+            40% {
+                transform: translateY(-10px) rotate(3deg) scale(1.05);
+            }
+            60% {
+                transform: translateY(-5px) rotate(3deg) scale(1.05);
+            }
+        }
+
+
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             h1 {
@@ -256,10 +308,12 @@
     <div class="container" id="mainContainer" role="main" aria-live="polite" aria-atomic="true">
         <h1>Découvrez une Chaîne YouTube Aléatoire !</h1>
         <p>Cliquez sur le bouton ci-dessous pour être instantanément redirigé vers une chaîne YouTube choisie aléatoirement parmi notre sélection. Une petite surprise vous attend !</p>
-        <button class="button" id="surpriseButton" onclick="triggerRandomRedirect()" aria-label="Lancer la découverte d'une chaîne YouTube aléatoire">
+        <button class="button" id="surpriseButton" aria-label="Lancer la découverte d'une chaîne YouTube aléatoire">
             <i class="fas fa-magic"></i>
-            <span>Surprenez-moi !</span>
+            <span id="buttonText">Surprenez-moi !</span>
         </button>
+
+        <p class="click-info">Vous avez cliqué <span id="clickCountDisplay">0</span> fois sur ce bouton !</p>
 
         <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Chargement de la chaîne YouTube">
             <div class="spinner"></div>
@@ -274,7 +328,7 @@
     </div>
 
     <footer class="footer" role="contentinfo">
-        <span>Créé par G.voida.</span> 
+        <span>Créé par G.voida.</span>
         <a href="https://discord.gg/ye8MhVUdWU" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-discord"></i> Rejoindre le Discord
         </a>
@@ -283,8 +337,13 @@
     <script>
         const youtubeChannels = [
             // --- REMPLACEZ CES PLACEHOLDERS PAR VOS VRAIES URLS DE CHAÎNES YOUTUBE ---
-            'https://www.youtube.com/@CismuYTB',
-            'https://www.youtube.com/@denisa_official-99',
+            'https://www.youtube.com/@MrBeast', // Exemple réel
+            'https://www.youtube.com/@PewDiePie', // Exemple réel
+            'https://www.youtube.com/@markiplier', // Exemple réel
+            'https://www.youtube.com/@squeezie', // Exemple réel
+            'https://www.youtube.com/@Cyprien', // Exemple réel
+            'https://www.youtube.com/@Michou', // Exemple réel
+            // Ajoutez d'autres chaînes ici
         ];
 
         const loadingOverlay = document.getElementById('loadingOverlay');
@@ -292,8 +351,50 @@
         const surpriseButton = document.getElementById('surpriseButton');
         const progressBar = document.getElementById('progressBar');
         const channelMissingAlert = document.getElementById('channelMissingAlert');
+        const clickCountDisplay = document.getElementById('clickCountDisplay'); // Nouveau
+        const buttonTextSpan = document.getElementById('buttonText'); // Nouveau pour changer le texte du bouton
 
-        let intervalId; // To store the interval for progress bar
+        let intervalId;
+        let clickCount = 0; // Initialisation du compteur de clics
+
+        // --- NOUVELLES FONCTIONS POUR LE COMPTEUR DE CLICS ET LES STYLES ---
+
+        // Charge le nombre de clics depuis le LocalStorage
+        function loadClickCount() {
+            const savedCount = localStorage.getItem('surpriseButtonClickCount');
+            if (savedCount) {
+                clickCount = parseInt(savedCount, 10);
+            }
+            updateButtonAppearance(); // Met à jour l'apparence au chargement
+        }
+
+        // Sauvegarde le nombre de clics dans le LocalStorage
+        function saveClickCount() {
+            localStorage.setItem('surpriseButtonClickCount', clickCount);
+        }
+
+        // Met à jour l'affichage du compteur et le style du bouton
+        function updateButtonAppearance() {
+            clickCountDisplay.textContent = clickCount;
+
+            // Supprime toutes les classes de style de clics pour éviter les doublons
+            surpriseButton.classList.remove('click-level-1', 'click-level-2', 'click-level-3');
+
+            if (clickCount >= 10) {
+                surpriseButton.classList.add('click-level-3');
+                buttonTextSpan.textContent = "EXPLOSION !";
+            } else if (clickCount >= 5) {
+                surpriseButton.classList.add('click-level-2');
+                buttonTextSpan.textContent = "Ça chauffe !";
+            } else if (clickCount >= 1) {
+                surpriseButton.classList.add('click-level-1');
+                buttonTextSpan.textContent = "Encore un clic !";
+            } else {
+                buttonTextSpan.textContent = "Surprenez-moi !";
+            }
+        }
+
+        // --- FIN DES NOUVELLES FONCTIONS ---
 
         function triggerRandomRedirect() {
             if (youtubeChannels.length === 0) {
@@ -301,50 +402,56 @@
                 return;
             }
 
-            channelMissingAlert.classList.remove('active'); // Hide alert if it was visible
-            surpriseButton.disabled = true; // Disable button during loading
+            // Incrémente et sauvegarde le compteur de clics AVANT la redirection
+            clickCount++;
+            saveClickCount();
+            updateButtonAppearance(); // Met à jour l'apparence immédiatement après le clic
+
+            channelMissingAlert.classList.remove('active');
+            surpriseButton.disabled = true;
             loadingOverlay.classList.add('active');
             mainContainer.classList.add('loading');
-            
-            progressBar.style.width = '0%'; // Reset progress bar
-            let progress = 0;
-            const totalLoadingTime = Math.random() * 1500 + 1500; // Between 1.5s and 3s
 
-            // Update progress bar
+            progressBar.style.width = '0%';
+            let progress = 0;
+            const totalLoadingTime = Math.random() * 1500 + 1500;
+
             intervalId = setInterval(() => {
-                progress += (100 / (totalLoadingTime / 100)); // Increment based on total time
+                progress += (100 / (totalLoadingTime / 100));
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(intervalId);
                 }
                 progressBar.style.width = progress + '%';
-            }, 100); // Update every 100ms
+            }, 100);
 
             setTimeout(() => {
-                clearInterval(intervalId); // Ensure interval is cleared
+                clearInterval(intervalId);
                 const randomIndex = Math.floor(Math.random() * youtubeChannels.length);
                 const randomChannelUrl = youtubeChannels[randomIndex];
-                
-                // Reset UI before redirecting (optional, but good practice)
+
                 loadingOverlay.classList.remove('active');
                 mainContainer.classList.remove('loading');
                 surpriseButton.disabled = false;
-                progressBar.style.width = '0%'; // Ensure it's reset for next time
+                progressBar.style.width = '0%';
 
                 window.location.href = randomChannelUrl;
             }, totalLoadingTime);
         }
 
-        // Example of how to add more channels dynamically (optional)
+        // Ajoute un écouteur d'événement pour le clic du bouton
+        surpriseButton.addEventListener('click', triggerRandomRedirect);
+
+        // Charge le nombre de clics au démarrage de la page
+        document.addEventListener('DOMContentLoaded', loadClickCount);
+
+        // Cette fonction n'est pas utilisée mais est conservée pour référence si vous voulez ajouter des chaînes dynamiquement
         function addChannel(url) {
             if (url && !youtubeChannels.includes(url)) {
                 youtubeChannels.push(url);
                 console.log(`Channel added: ${url}. Total channels: ${youtubeChannels.length}`);
             }
         }
-
-        // Optional: uncomment to redirect automatically on page load
-        // window.onload = triggerRandomRedirect;
     </script>
 </body>
 </html>
