@@ -14,10 +14,19 @@
         
         <button class="button" id="surpriseButton" aria-label="Lancer la découverte d'une chaîne YouTube aléatoire">
             <i class="fas fa-magic"></i>
-            <span>Surprenez-moi !</span>
-        </button>
+            <span>Trouver une chaîne</span> </button>
 
-        <p class="click-info">Vous avez cliqué <span id="clickCountDisplay">0</span> fois et atteint le rang <span id="clickRank">Bronze</span> !</p>
+        <div class="stats-area">
+            <p class="stats-text">
+                Rangs : <span id="clickRank">Bronze</span> (Cliquez <span id="clicksToNextRank">?</span> fois pour le suivant !)
+            </p>
+            <div class="progress-bar-overall-container">
+                <div class="progress-bar-overall" id="overallProgressBar"></div>
+            </div>
+            <p class="stats-text">
+                Argent : <span id="moneyDisplay">0</span> <i class="fas fa-coins"></i>
+            </p>
+        </div>
 
         <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Chargement de la chaîne YouTube">
             <div class="spinner"></div>
@@ -28,6 +37,28 @@
 
         <div class="alert-message" id="channelMissingAlert" role="alert">
             Désolé, aucune chaîne YouTube n'a été configurée. Veuillez ajouter des URL à la liste !
+        </div>
+
+        <div class="shop-container" id="shopContainer">
+            <h2>Boutique de Cosmétiques</h2>
+            <div class="cosmetic-items">
+                </div>
+            <button class="close-shop-btn" id="closeShopBtn">Fermer la Boutique</button>
+        </div>
+
+        <button class="open-shop-btn" id="openShopBtn">
+            <i class="fas fa-store"></i> Ouvrir la Boutique
+        </button>
+
+        <div class="dev-mode-panel" id="devModePanel">
+            <h3>Mode Développeur</h3>
+            <button id="resetStatsBtn" class="dev-btn">Réinitialiser les stats</button>
+            <button id="toggleRedirectBtn" class="dev-btn">Activer/Désactiver Redirection</button>
+            <p id="redirectStatus" class="dev-status">Redirection : ACTIVÉE</p>
+            <input type="number" id="setMoneyInput" placeholder="Définir l'argent" class="dev-input">
+            <button id="setMoneyBtn" class="dev-btn">Appliquer Argent</button>
+            <input type="number" id="setClicksInput" placeholder="Définir les clics" class="dev-input">
+            <button id="setClicksBtn" class="dev-btn">Appliquer Clics</button>
         </div>
     </div>
 
