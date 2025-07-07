@@ -1,86 +1,96 @@
 /* styles.css */
 
+/* Importation de la police Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 body {
-    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; /* Police moderne */
+    font-family: 'Poppins', sans-serif; /* Application de la police Poppins */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #f4f7f6; /* Fond très clair et doux */
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Dégradé de fond subtil */
     color: #333;
     line-height: 1.6;
+    overflow: hidden; /* Empêche le défilement si le contenu dépasse */
 }
 
 .container {
-    background-color: #ffffff; /* Fond blanc pur pour le conteneur */
-    padding: 60px 40px; /* Plus d'espace intérieur */
-    border-radius: 12px; /* Bords légèrement plus arrondis */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Ombre plus douce et diffuse */
+    background-color: #ffffff;
+    padding: 60px 40px;
+    border-radius: 15px; /* Bords encore plus arrondis */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée et douce */
     text-align: center;
-    max-width: 500px; /* Limite la largeur pour une meilleure lisibilité */
-    width: 90%; /* Responsive sur petits écrans */
-    animation: fadeIn 1s ease-out; /* Animation d'apparition */
+    max-width: 550px; /* Largeur légèrement augmentée */
+    width: 90%;
+    animation: fadeInScale 1s ease-out forwards; /* Animation d'apparition avec un léger zoom */
+    position: relative; /* Pour le positionnement des pseudo-éléments si besoin */
+    z-index: 1; /* Assure que le conteneur est au-dessus du fond */
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 h1 {
-    color: #e53935; /* Un rouge YouTube un peu plus vif */
-    margin-bottom: 35px;
-    font-size: 2.2em; /* Taille de police plus grande */
-    font-weight: 600; /* Texte plus gras */
+    color: #e53935; /* Rouge YouTube classique */
+    margin-bottom: 40px; /* Plus d'espace sous le titre */
+    font-size: 2.5em; /* Titre plus grand */
+    font-weight: 700; /* Texte plus gras pour l'impact */
+    line-height: 1.3;
 }
 
 button {
     background-color: #e53935; /* Rouge YouTube */
     color: white;
     border: none;
-    padding: 16px 32px; /* Plus grand pour le clic */
-    font-size: 1.2em;
-    font-weight: 500;
-    border-radius: 8px; /* Bords arrondis pour le bouton */
+    padding: 18px 35px; /* Plus de padding pour un bouton généreux */
+    font-size: 1.3em; /* Texte du bouton plus grand */
+    font-weight: 600; /* Texte gras pour le bouton */
+    border-radius: 50px; /* Bouton pill-shaped (en forme de pilule) */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3); /* Ombre pour le bouton */
+    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4); /* Ombre plus prononcée pour le bouton */
+    letter-spacing: 0.5px; /* Espacement léger entre les lettres */
 }
 
 button:hover {
     background-color: #d32f2f; /* Rouge plus foncé au survol */
-    transform: translateY(-2px); /* Léger soulèvement au survol */
-    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4);
+    transform: translateY(-3px); /* Soulèvement plus marqué */
+    box-shadow: 0 12px 30px rgba(229, 57, 53, 0.5); /* Ombre plus intense au survol */
 }
 
 button:active {
     transform: translateY(0); /* Redescend au clic */
-    box-shadow: 0 2px 10px rgba(229, 57, 53, 0.2);
+    box-shadow: 0 5px 15px rgba(229, 57, 53, 0.2);
 }
 
 /* Style du pied de page */
 .footer {
-    margin-top: 50px;
+    margin-top: 60px; /* Plus d'espace au-dessus du pied de page */
     padding: 20px;
-    color: #777; /* Gris léger */
-    font-size: 0.9em;
+    color: #777;
+    font-size: 0.95em; /* Taille légèrement augmentée */
     text-align: center;
+    width: 100%;
+    max-width: 600px;
 }
 
 .footer p {
-    margin: 5px 0;
+    margin: 8px 0;
 }
 
 .footer a {
     color: #4285f4; /* Bleu Google pour les liens */
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-weight: 600; /* Texte des liens plus gras */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .footer a:hover {
     color: #3367d6; /* Bleu plus foncé au survol */
-    text-decoration: underline;
+    text-decoration: underline; /* Souligne au survol */
 }
