@@ -1,82 +1,114 @@
 /* styles.css */
 
-/* Importation de la police Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+/* Importation de la police Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    /* Variables de couleurs pour une gestion facile */
+    --primary-red: #ff0000; /* Le vrai rouge YouTube */
+    --primary-red-dark: #cc0000;
+    --background-light: #f8faff; /* Un blanc bleuté très doux */
+    --background-gradient-start: #e0f2f7;
+    --background-gradient-end: #c4e0e5;
+    --text-color-dark: #2c3e50;
+    --text-color-light: #6c757d;
+    --link-color: #3b82f6;
+    --link-hover-color: #2563eb;
+    --card-background: #ffffff;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --shadow-deep: rgba(0, 0, 0, 0.25);
+    --button-shadow-light: rgba(255, 0, 0, 0.4);
+    --button-shadow-hover: rgba(255, 0, 0, 0.6);
+}
 
 body {
-    font-family: 'Poppins', sans-serif; /* Application de la police Poppins */
+    font-family: 'Inter', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Dégradé de fond subtil */
-    color: #333;
+    background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
+    color: var(--text-color-dark);
     line-height: 1.6;
-    overflow: hidden; /* Empêche le défilement si le contenu dépasse */
+    overflow: hidden;
+    padding: 20px; /* Ajoute un peu de padding pour éviter que le contenu touche les bords sur mobile */
+    box-sizing: border-box; /* Inclut le padding dans la largeur/hauteur totale */
 }
 
 .container {
-    background-color: #ffffff;
-    padding: 60px 40px;
-    border-radius: 15px; /* Bords encore plus arrondis */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée et douce */
+    background-color: var(--card-background);
+    padding: 60px 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px var(--shadow-medium); /* Ombre élégante */
     text-align: center;
-    max-width: 550px; /* Largeur légèrement augmentée */
-    width: 90%;
-    animation: fadeInScale 1s ease-out forwards; /* Animation d'apparition avec un léger zoom */
-    position: relative; /* Pour le positionnement des pseudo-éléments si besoin */
-    z-index: 1; /* Assure que le conteneur est au-dessus du fond */
+    max-width: 650px; /* Légèrement plus large pour le texte */
+    width: 100%; /* Utilise 100% de la largeur disponible jusqu'à max-width */
+    animation: fadeInRise 1.2s ease-out forwards; /* Animation d'apparition plus douce */
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease; /* Pour un futur effet si besoin */
 }
 
-@keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.95) translateY(-20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
+@keyframes fadeInRise {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h1 {
-    color: #e53935; /* Rouge YouTube classique */
-    margin-bottom: 40px; /* Plus d'espace sous le titre */
-    font-size: 2.5em; /* Titre plus grand */
-    font-weight: 700; /* Texte plus gras pour l'impact */
-    line-height: 1.3;
+    color: var(--primary-red);
+    margin-bottom: 20px; /* Ajusté pour le sous-titre */
+    font-size: 2.8em;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Ombre de texte subtile */
+}
+
+.subtitle {
+    color: var(--text-color-light);
+    font-size: 1.15em;
+    margin-bottom: 45px; /* Plus d'espace avant le bouton */
+    font-weight: 400;
 }
 
 button {
-    background-color: #e53935; /* Rouge YouTube */
+    background-color: var(--primary-red);
     color: white;
     border: none;
-    padding: 18px 35px; /* Plus de padding pour un bouton généreux */
-    font-size: 1.3em; /* Texte du bouton plus grand */
-    font-weight: 600; /* Texte gras pour le bouton */
-    border-radius: 50px; /* Bouton pill-shaped (en forme de pilule) */
+    padding: 18px 38px;
+    font-size: 1.3em;
+    font-weight: 600;
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.4); /* Ombre plus prononcée pour le bouton */
-    letter-spacing: 0.5px; /* Espacement léger entre les lettres */
+    box-shadow: 0 10px 30px var(--button-shadow-light);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    outline: none; /* Supprime le contour bleu au clic sur certains navigateurs */
 }
 
 button:hover {
-    background-color: #d32f2f; /* Rouge plus foncé au survol */
-    transform: translateY(-3px); /* Soulèvement plus marqué */
-    box-shadow: 0 12px 30px rgba(229, 57, 53, 0.5); /* Ombre plus intense au survol */
+    background-color: var(--primary-red-dark);
+    transform: translateY(-4px); /* Soulèvement subtil */
+    box-shadow: 0 15px 40px var(--button-shadow-hover);
 }
 
 button:active {
-    transform: translateY(0); /* Redescend au clic */
-    box-shadow: 0 5px 15px rgba(229, 57, 53, 0.2);
+    transform: translateY(-1px); /* Léger enfoncement au clic */
+    box-shadow: 0 8px 20px var(--button-shadow-light);
 }
 
 /* Style du pied de page */
 .footer {
-    margin-top: 60px; /* Plus d'espace au-dessus du pied de page */
-    padding: 20px;
-    color: #777;
-    font-size: 0.95em; /* Taille légèrement augmentée */
+    margin-top: 80px;
+    padding: 25px;
+    color: var(--text-color-light);
+    font-size: 0.9em;
     text-align: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .footer p {
@@ -84,13 +116,71 @@ button:active {
 }
 
 .footer a {
-    color: #4285f4; /* Bleu Google pour les liens */
+    color: var(--link-color);
     text-decoration: none;
-    font-weight: 600; /* Texte des liens plus gras */
+    font-weight: 600;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .footer a:hover {
-    color: #3367d6; /* Bleu plus foncé au survol */
-    text-decoration: underline; /* Souligne au survol */
+    color: var(--link-hover-color);
+    text-decoration: underline; 
+}
+
+.heart {
+    color: var(--primary-red);
+    animation: pulse 1.5s infinite; /* Animation de battement de cœur */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Media Queries pour la Responsivité */
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 30px;
+        border-radius: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+
+    .subtitle {
+        font-size: 1em;
+        margin-bottom: 30px;
+    }
+
+    button {
+        padding: 15px 30px;
+        font-size: 1.1em;
+    }
+
+    .footer {
+        margin-top: 50px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+
+    .footer {
+        padding: 15px;
+    }
 }
