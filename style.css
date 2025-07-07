@@ -1,0 +1,50 @@
+/* NOUVEAUX STYLES POUR LE BOUTON SELON LE NOMBRE DE CLICS */
+.button.click-level-1 { /* Après 1 clic */
+    background-color: #28a745; /* Vert plus vif */
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.5); /* Ombre verte */
+    transform: scale(1.02); /* Légèrement plus grand */
+    animation: pulse-green 1.5s infinite alternate;
+}
+
+.button.click-level-2 { /* Après 5 clics */
+    background-color: #ffc107; /* Jaune */
+    color: var(--dark-grey); /* Texte plus foncé */
+    border: 3px solid var(--dark-grey);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.6); /* Ombre jaune */
+    font-size: 1.5em; /* Plus grand */
+    animation: shake 0.5s infinite;
+}
+
+.button.click-level-3 { /* Après 10 clics */
+    background-color: #dc3545; /* Rouge d'alerte */
+    box-shadow: 0 0 25px rgba(220, 53, 69, 0.8); /* Ombre rouge éclatante */
+    transform: rotate(3deg) scale(1.05); /* Légèrement penché et plus grand */
+    border-radius: 50px; /* Forme de pilule */
+    animation: bounce 1s infinite;
+}
+
+/* NOUVELLES ANIMATIONS */
+@keyframes pulse-green {
+    from { transform: scale(1.02); }
+    to { transform: scale(1.06); }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(3deg) scale(1.05);
+    }
+    40% {
+        transform: translateY(-10px) rotate(3deg) scale(1.05);
+    }
+    60% {
+        transform: translateY(-5px) rotate(3deg) scale(1.05);
+    }
+}
